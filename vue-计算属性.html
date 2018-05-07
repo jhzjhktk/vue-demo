@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <div>Original Message:{{message}}</div>
+        <div>{{reversedMessage}}</div>
+        <div>{{myReverse()}}</div>
+    </div>
+    <div id="demo2">{{fullName}}</div>
+    <script>
+        //Vue 知道 vm.reversedMessage 依赖于 vm.message，因此当 vm.message 发生改变时，所有依赖 vm.reversedMessage 的绑定也会更新。
+        //计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。
+        //每当触发重新渲染时，调用方法将总会再次执行函数
+        //我们为什么需要缓存？假设我们有一个性能开销比较大的的计算属性 A，它需要遍历一个巨大的数组并做大量的计算。然后我们可能有其他的计算属性依赖于 A 。
+        //如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代。
+        var vm = new Vue({
+            el: "#demo",
+            data:{
+                message: 'hello'
+            },
+            computed:{  //计算属性
+                reversedMessage:function () { 
+                    return this.message.split('').reverse().join('')
+                 }
+            },
+            methods: { //计算方法
+                myReverse: function(){
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        var vm2 = new new Vue({
+            el: '#demo2',
+            data: {
+                firstName: 'tang',
+                lastName: 'xin'
+            },
+            computed: {
+                fullName: function(){
+                    return this.firstName + " " + this.lastName
+                }
+            }
+        })  
+    </script>
+</body>
+</html>

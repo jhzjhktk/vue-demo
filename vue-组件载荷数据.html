@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-组件载荷数据</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <p>{{message}}</p>
+        <send-div v-on:getchildmessage="getMessage"></send-div>
+    </div>
+
+    <script>
+        Vue.component('send-div',{
+            template: `<div>
+                    <input type="text" v-model="mes" />
+                    <button v-on:click="handleMessage">send</button>
+                </div>`,
+            data: function(){
+                return {
+                    mes: 'test message'
+                }
+            },
+            methods: {
+                handleMessage: function(){
+                    this.$emit('getchildmessage',{bb: this.mes})
+                }
+            }
+        });
+        new Vue({
+            el: '#box',
+            data: {
+                message: 'test'
+            },
+            methods: {
+                getMessage: function(aaa){
+                    console.log(aaa)
+                    this.message = aaa.bb
+                }
+            }
+        })
+    </script>
+</body>
+</html>

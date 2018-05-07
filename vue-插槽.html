@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-插槽</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <h1>父组件标题</h1>
+        <my-component>
+            <p>父组件插入内容</p>
+            <p>父组件插入内容2</p>
+        </my-component>
+    </div>
+
+    <script>
+        Vue.component('my-component',{
+            template: `
+            <div>
+                <h1>子组件标题</h1>
+                <slot>
+                    子组件插槽
+                </slot>
+            </div>
+            `
+        }),
+        new Vue({
+            el: '#box'    
+        })
+    </script>
+
+</body>
+</html>

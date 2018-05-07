@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-组件自定义事件</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <p>{{total}}</p>
+        <button-a v-on:increment="incrementTotal"></button-a>
+        <button-a v-on:increment="incrementTotal"></button-a>
+    </div>
+    <script>
+        Vue.component('button-a',{
+            template: '<button v-on:click="incrementCounter">{{counter}}</button>',
+            data: function(){
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                incrementCounter: function(){
+                    this.counter += 1
+                    this.$emit('increment')
+                }
+            }
+        });
+        new Vue({
+            el: '#box',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function(){
+                    this.total += 1
+                }
+            }
+        })
+    </script>
+</body>
+</html>
