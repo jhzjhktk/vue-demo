@@ -1,3 +1,3 @@
 # vue-demo
 
-##vue练习demo
+vue练习demo
