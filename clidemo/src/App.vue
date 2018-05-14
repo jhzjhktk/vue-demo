@@ -3,9 +3,10 @@
     <ul class="nav-box">
       <router-link :to="indexLink" exact tag="li" event="mouseover">Home</router-link>
       <router-link :to="{path: '/About'}" tag="li" active-class="about-active" event="mouseover">About</router-link>
-      <router-link to="Document" tag="li">Document</router-link>
+      <router-link to="Document#target" tag="li">Document</router-link>
     </ul>
     <router-view class="content-class"></router-view>
+    <router-view name="slider"></router-view>
   </div>
 </template>
 

@@ -6,12 +6,28 @@ import Document from '@/components/Document'
 // import noFound from '@/components/404'
 import study from '@/views/study'
 import work from '@/views/work'
+import Slider from '@/components/slider'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   linkActiveClass: 'nav-active',
+  scrollBehavior (to, from, savedPosition) {
+    // to 目标路由对象
+    // from 出发地路由对象
+    // savedPosition 记录滚动条的位置  前进后退时有值
+    // if (savedPosition) {
+    //   return (savedPosition)
+    // } else {
+    //   return {x: 0, y: 0}
+    // }
+    if (to.hash) {
+      return {
+        selector: to.hash
+      }
+    }
+  },
   routes: [
     {
       path: '/Home',
@@ -37,7 +53,10 @@ export default new Router({
     {
       path: '/document',
       name: 'Document',
-      component: Document
+      components: {
+        default: Document,
+        slider: Slider
+      }
     },
     {
       path: '*',
