@@ -18,7 +18,5 @@ export default {
 </script>
 
 <style>
-.nav-active{
-  background: yellow;
-}
+
 </style>

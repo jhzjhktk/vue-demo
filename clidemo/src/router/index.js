@@ -7,6 +7,7 @@ import Document from '@/components/Document'
 import study from '@/views/study'
 import work from '@/views/work'
 import Slider from '@/components/slider'
+import user from '@/components/user'
 
 Vue.use(Router)
 
@@ -33,7 +34,18 @@ export default new Router({
       path: '/Home',
       name: 'Home',
       component: Home,
-      alias: '/index'
+      alias: '/index',
+      meta: {
+        index: 0
+      }
+    },
+    {
+      path: '/user/:userId?',
+      name: 'user',
+      component: user,
+      meta: {
+        index: 3
+      }
     },
     {
       path: '/about',
@@ -42,7 +54,10 @@ export default new Router({
         {
           path: '',
           name: 'about',
-          component: study
+          component: study,
+          meta: {
+            index: 1
+          }
         },
         {
           path: 'work',
@@ -56,6 +71,9 @@ export default new Router({
       components: {
         default: Document,
         slider: Slider
+      },
+      meta: {
+        index: 2
       }
     },
     {
@@ -74,6 +92,9 @@ export default new Router({
         } else {
           return '/home'
         }
+      },
+      meta: {
+        index: 4
       }
     }
   ]
