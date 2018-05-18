@@ -7,11 +7,17 @@
       <router-link to="Document" tag="li">Document</router-link>
       <router-link to="user" tag="li">user</router-link>
     </ul>
-    {{this.$route.meta.index}}
+    <!-- {{this.$route.meta.index}} -->
+    <input type="button" value="后退" @click="backHandle" />
+    <button @click="forwardHandle">前进</button>
+    <button @click="goHandle">后退或前进指定步数</button>
+    <button @click="pushHandle">控制指定的导航push</button>
+    <button @click="replaceHandle">控制指定的导航replace</button>
+
     <transition :name="names">
       <router-view class="content-class"></router-view>
     </transition>
-    <router-view name="slider"></router-view>
+    <!-- <router-view name="slider"></router-view> -->
   </div>
 </template>
 
@@ -31,6 +37,24 @@ export default {
       } else {
         this.names = 'right'
       }
+    }
+  },
+  methods: {
+    backHandle () {
+      this.$router.back()
+    },
+    forwardHandle () {
+      this.$router.forward()
+    },
+    goHandle () {
+      // this.$router.go(-1)//后退
+      this.$router.go(1) // 前进
+    },
+    pushHandle () {
+      this.$router.push('/Document') // 往url栈里push一个地址
+    },
+    replaceHandle () {
+      this.$router.replace('/user')
     }
   }
 }
@@ -91,7 +115,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 body{
   padding: 0;
@@ -123,5 +146,8 @@ li{
 .content-class{
   font-size: 40px;
   text-align: center;
+  position: absolute;
+  top: 100px;
+  width: 100%;
 }
 </style>
