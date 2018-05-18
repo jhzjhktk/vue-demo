@@ -11,7 +11,7 @@ import user from '@/components/user'
 
 Vue.use(Router)
 
-export default new Router({
+let routerq = new Router({
   mode: 'history',
   linkActiveClass: 'nav-active',
   scrollBehavior (to, from, savedPosition) {
@@ -44,7 +44,8 @@ export default new Router({
       name: 'user',
       component: user,
       meta: {
-        index: 3
+        index: 3,
+        login: true
       }
     },
     {
@@ -68,34 +69,60 @@ export default new Router({
     {
       path: '/document',
       name: 'Document',
+      beforeEnter (to, from, next) {
+        console.log(2222)
+        next()
+      },
       components: {
         default: Document,
         slider: Slider
       },
       meta: {
-        index: 2
-      }
-    },
-    {
-      path: '*',
-      // component: noFound
-      // 重定向
-      // redirect: '/home'
-      // redirect: { path: '/home' }
-      // redirect: {name: 'Home'}
-      redirect: (to) => {
-        console.log(to)
-        if (to.path === '/123') {
-          return '/document'
-        } else if (to.path === '/abc') {
-          return '/about'
-        } else {
-          return '/home'
-        }
-      },
-      meta: {
-        index: 4
+        index: 2,
+        title: 'documentdddd'
       }
     }
+    // {
+    //   path: '*',
+    //   // component: noFound
+    //   // 重定向
+    //   // redirect: '/home'
+    //   // redirect: { path: '/home' }
+    //   // redirect: {name: 'Home'}
+    //   redirect: (to) => {
+    //     console.log(to)
+    //     if (to.path === '/123') {
+    //       return '/document'
+    //     } else if (to.path === '/abc') {
+    //       return '/about'
+    //     } else {
+    //       return '/home'
+    //     }
+    //   },
+    //   meta: {
+    //     index: 4
+    //   }
+    // }
   ]
+})
+export default routerq
+
+routerq.beforeEach((to, from, next) => {
+  console.log('aaa')
+  // next()
+  // next(false)
+  // if (to.meta.login) {
+  //   next('/login')
+  // } else {
+  //   next()
+  // }
+  next()
+})
+
+routerq.afterEach((to, from) => {
+  if (to.meta.title) {
+    window.document.title = to.meta.title
+  } else {
+    window.document.title = 'miaov'
+  }
 })
